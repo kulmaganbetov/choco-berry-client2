@@ -10,10 +10,17 @@ const catalogFilePath =
 
 export async function readCatalogFromDisk(): Promise<CatalogData> {
   if (isDatabaseEnabled) {
-    const { prisma } = await import("@/lib/prisma");
-    const row = await prisma.catalog.findUnique({ where: { id: CATALOG_ID } });
-    if (!row) return defaultCatalog;
-    return normalizeCatalog(row.data as Partial<CatalogData>);
+    try {
+      const { prisma } = await import("@/lib/prisma");
+      const row = await prisma.catalog.findUnique({ where: { id: CATALOG_ID } });
+      if (!row) return defaultCatalog;
+      return normalizeCatalog(row.data as Partial<CatalogData>);
+    } catch (error) {
+      // Never let a read failure (e.g. table not yet created, transient DB
+      // outage) take the whole page down — serve defaults and log instead.
+      console.error("[catalog] failed to read from database, serving defaults:", error);
+      return defaultCatalog;
+    }
   }
 
   try {

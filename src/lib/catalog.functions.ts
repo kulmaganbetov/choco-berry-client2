@@ -8,7 +8,7 @@ export const getCatalog = createServerFn({ method: "GET" }).handler(async () => 
 });
 
 export const saveCatalog = createServerFn({ method: "POST" })
-  .validator((data: CatalogData) => normalizeCatalog(data))
+  .inputValidator((data: CatalogData) => normalizeCatalog(data))
   .handler(async ({ data }) => {
     return writeCatalogToDisk(data);
   });
