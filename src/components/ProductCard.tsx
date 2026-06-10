@@ -31,7 +31,7 @@ export function ProductCard({ product, index }: { product: Product; index: numbe
           )}
         </div>
         <div className="flex items-center justify-between gap-3 pt-2">
-          <span className="text-2xl font-display font-semibold text-gradient-rose">
+          <span className="text-2xl font-sans font-semibold text-gradient-rose">
             {formatPrice(product.price)}
           </span>
           <a
