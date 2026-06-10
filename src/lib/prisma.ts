@@ -6,7 +6,13 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function makePrisma() {
-  return new PrismaClient().$extends(withAccelerate());
+  const url = process.env.DATABASE_URL ?? "";
+  const isAccelerate = url.startsWith("prisma://") || url.startsWith("prisma+postgres://");
+
+  const client = new PrismaClient();
+  // Accelerate / Prisma Postgres (prisma+postgres://) URLs need the Accelerate
+  // extension; a direct postgres:// connection uses the bundled binary engine.
+  return isAccelerate ? client.$extends(withAccelerate()) : client;
 }
 
 export const prisma = globalForPrisma.prisma ?? makePrisma();

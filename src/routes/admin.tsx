@@ -96,7 +96,6 @@ function Dashboard() {
     isSyncing,
     saveError,
     loadCatalog,
-    saveCatalog,
     addProduct,
     updateProduct,
     deleteProduct,
@@ -132,16 +131,12 @@ function Dashboard() {
           </div>
         </header>
 
-        <div className="mb-4 flex flex-wrap items-center gap-3 text-sm">
-          <button onClick={() => void saveCatalog()} className="btn-gold px-4 py-2 rounded-full">
-            Опубликовать текущие данные
-          </button>
-          <button onClick={() => void loadCatalog()} className="glass-panel px-4 py-2 rounded-full">
-            Загрузить с сервера
-          </button>
-          {isSyncing && <span className="text-muted-foreground">Синхронизация с сервером…</span>}
-          {saveError && <span className="text-destructive">Ошибка синхронизации: {saveError}</span>}
-        </div>
+        {(isSyncing || saveError) && (
+          <div className="mb-4 flex flex-wrap items-center gap-3 text-sm">
+            {isSyncing && <span className="text-muted-foreground">Сохранение…</span>}
+            {saveError && <span className="text-destructive">Ошибка синхронизации: {saveError}</span>}
+          </div>
+        )}
 
         <div className="glass-panel rounded-full p-1.5 inline-flex mb-6">
           {(["products", "settings"] as Tab[]).map((t) => (
