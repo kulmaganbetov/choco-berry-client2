@@ -1,6 +1,11 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "@fontsource-variable/inter";
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/great-vibes/400.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -38,9 +43,9 @@
   --color-gold: var(--gold);
   --color-champagne: var(--champagne);
 
-  --font-display: "Playfair Display", "Cormorant Garamond", serif;
-  --font-script: "Great Vibes", cursive;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-script: "Great Vibes", "Brush Script MT", "Snell Roundhand", cursive;
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
@@ -135,11 +140,13 @@
 }
 
 @utility text-gradient-rose {
-  color: var(--rose-deep);
-  background: linear-gradient(135deg, oklch(0.55 0.16 8), oklch(0.68 0.13 8), var(--gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: oklch(0.55 0.16 8);
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    background-image: linear-gradient(135deg, oklch(0.55 0.16 8), oklch(0.68 0.13 8), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 @keyframes float {
