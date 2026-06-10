@@ -1,9 +1,4 @@
-export type Category =
-  | "strawberry"
-  | "berries"
-  | "fruits"
-  | "gifts"
-  | "other";
+export type Category = "strawberry" | "berries" | "fruits" | "gifts" | "other";
 
 export interface Product {
   id: string;
@@ -16,6 +11,8 @@ export interface Product {
   order: number;
 }
 
+export type CategoryLabels = Record<Category, string>;
+
 export interface SiteSettings {
   whatsapp: string;
   title: string;
@@ -23,6 +20,7 @@ export interface SiteSettings {
   logo: string;
   bgDesktop: string;
   bgMobile: string;
+  categoryLabels: CategoryLabels;
 }
 
 export const CATEGORIES: { id: Category; label: string }[] = [
@@ -32,3 +30,12 @@ export const CATEGORIES: { id: Category; label: string }[] = [
   { id: "gifts", label: "Подарочные наборы" },
   { id: "other", label: "Другое" },
 ];
+
+export const DEFAULT_CATEGORY_LABELS: CategoryLabels = CATEGORIES.reduce(
+  (labels, category) => ({ ...labels, [category.id]: category.label }),
+  {} as CategoryLabels,
+);
+
+export function getCategoryLabel(labels: Partial<CategoryLabels> | undefined, category: Category) {
+  return labels?.[category] ?? DEFAULT_CATEGORY_LABELS[category];
+}
