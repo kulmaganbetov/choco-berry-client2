@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore } from "@/store/useStore";
 import {
@@ -93,6 +93,10 @@ function Dashboard() {
     products,
     settings,
     logout,
+    isSyncing,
+    saveError,
+    loadCatalog,
+    saveCatalog,
     addProduct,
     updateProduct,
     deleteProduct,
@@ -105,6 +109,10 @@ function Dashboard() {
   const [creating, setCreating] = useState(false);
 
   const sorted = [...products].sort((a, b) => a.order - b.order);
+
+  useEffect(() => {
+    void loadCatalog();
+  }, [loadCatalog]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blush via-background to-rose/20 px-4 py-8">
