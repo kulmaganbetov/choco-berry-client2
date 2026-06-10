@@ -98,10 +98,6 @@ function Dashboard() {
     deleteProduct,
     reorder,
     updateSettings,
-    loadCatalog,
-    saveCatalog,
-    isSyncing,
-    saveError,
   } = useStore();
   const categoryLabels = settings.categoryLabels;
   const [tab, setTab] = useState<Tab>("products");

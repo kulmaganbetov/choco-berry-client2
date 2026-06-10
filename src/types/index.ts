@@ -26,7 +26,6 @@ export interface SiteSettings {
 export const CATEGORIES: { id: Category; label: string }[] = [
   { id: "strawberry", label: "Клубника в шоколаде" },
   { id: "berries", label: "Ягоды в шоколаде" },
-  { id: "fruits", label: "Фрукты в шоколаде" },
   { id: "gifts", label: "Подарочные наборы" },
   { id: "other", label: "Другое" },
 ];
