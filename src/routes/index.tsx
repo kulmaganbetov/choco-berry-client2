@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { useStore, filterByCategory } from "@/store/useStore";
@@ -51,13 +51,7 @@ function Home() {
       />
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-blush/30 via-transparent to-blush/60" aria-hidden />
 
-      {/* Admin link (subtle) */}
-      <Link
-        to="/admin"
-        className="fixed top-4 right-4 z-50 glass-panel rounded-full px-3 py-1.5 text-xs text-foreground/60 hover:text-foreground transition"
-      >
-        Admin
-      </Link>
+      {/* Admin доступен только по прямой ссылке /admin */}
 
       {/* HERO */}
       <section className="min-h-screen flex items-center justify-center px-4 py-20">
