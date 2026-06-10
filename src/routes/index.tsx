@@ -1,44 +1,51 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
-import { useStore, filterByCategory } from "@/store/useStore";
+import { useMemo, useState } from "react";
+import { filterByCategory } from "@/store/useStore";
+import { getCatalog } from "@/lib/catalog.functions";
 import { ProductCard } from "@/components/ProductCard";
-import { ProductSkeleton } from "@/components/ProductSkeleton";
 import { CategoryTabs } from "@/components/CategoryTabs";
 import type { Category } from "@/types";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "By Aidanella — Клубника в шоколаде | Премиум десерты" },
-      {
-        name: "description",
-        content:
-          "By Aidanella — премиальная клубника и ягоды в бельгийском шоколаде. Заказ через WhatsApp.",
-      },
-      { property: "og:title", content: "By Aidanella — Искушение в каждом кусочке" },
-      {
-        property: "og:description",
-        content: "Премиальная клубника в шоколаде ручной работы. Доставка и подарочные наборы.",
-      },
-    ],
-  }),
+  // Fetch catalog on the server so the correct logo, backgrounds and products
+  // are baked into the initial HTML — no client-side flash or loading delay.
+  loader: () => getCatalog(),
+  head: ({ loaderData }) => {
+    const s = loaderData?.settings;
+    const preloads = s
+      ? [
+          // Hint the browser to fetch the hero images early.
+          { rel: "preload", as: "image" as const, href: s.bgDesktop, media: "(min-width: 768px)" },
+          { rel: "preload", as: "image" as const, href: s.bgMobile, media: "(max-width: 767px)" },
+          { rel: "preload", as: "image" as const, href: s.logo },
+        ]
+      : [];
+    return {
+      meta: [
+        { title: "By Aidanella — Клубника в шоколаде | Премиум десерты" },
+        {
+          name: "description",
+          content:
+            "By Aidanella — премиальная клубника и ягоды в бельгийском шоколаде. Заказ через WhatsApp.",
+        },
+        { property: "og:title", content: "By Aidanella — Искушение в каждом кусочке" },
+        {
+          property: "og:description",
+          content: "Премиальная клубника в шоколаде ручной работы. Доставка и подарочные наборы.",
+        },
+      ],
+      links: preloads,
+    };
+  },
   component: Home,
 });
 
 function Home() {
-  const products = useStore((s) => s.products);
-  const settings = useStore((s) => s.settings);
-  const loadCatalog = useStore((s) => s.loadCatalog);
+  // Data arrives from the server-side loader — no useEffect, no loading state,
+  // no client round-trip before the images appear.
+  const { products, settings } = Route.useLoaderData();
   const [cat, setCat] = useState<Category | "all">("all");
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    void loadCatalog();
-
-    const t = setTimeout(() => setLoading(false), 500);
-    return () => clearTimeout(t);
-  }, [loadCatalog]);
 
   const visible = useMemo(() => filterByCategory(products, cat), [products, cat]);
 
@@ -63,8 +70,6 @@ function Home() {
         className="fixed inset-0 -z-10 bg-gradient-to-b from-blush/30 via-transparent to-blush/60"
         aria-hidden
       />
-
-      {/* Admin доступен только по прямой ссылке /admin */}
 
       {/* HERO */}
       <section className="min-h-screen flex items-center justify-center px-4 py-20">
@@ -141,12 +146,12 @@ function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {loading
-              ? Array.from({ length: 6 }).map((_, i) => <ProductSkeleton key={i} />)
-              : visible.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
+            {visible.map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} />
+            ))}
           </div>
 
-          {!loading && visible.length === 0 && (
+          {visible.length === 0 && (
             <p className="text-center text-muted-foreground py-16">
               В этой категории пока нет товаров
             </p>
