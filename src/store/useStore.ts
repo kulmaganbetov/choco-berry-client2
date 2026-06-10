@@ -70,7 +70,16 @@ export const useStore = create<AppState>()(
       },
       updateSettings: (s) => set({ settings: { ...get().settings, ...s } }),
     }),
-    { name: "aidanella-store" }
+    {
+      name: "aidanella-store",
+      version: 2,
+      migrate: (persisted: any, version) => {
+        if (persisted?.settings) {
+          persisted.settings.logo = defaultSettings.logo;
+        }
+        return persisted;
+      },
+    }
   )
 );
 
