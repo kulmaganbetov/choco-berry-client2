@@ -1,21 +1,20 @@
 import type { Product, SiteSettings } from "@/types";
 import { DEFAULT_CATEGORY_LABELS } from "@/types";
-import logoAsset from "@/assets/logo.png.asset.json";
-import bgDesktopAsset from "@/assets/bg-desktop.png.asset.json";
-import bgMobileAsset from "@/assets/bg-mobile.png.asset.json";
 
 export interface CatalogData {
   products: Product[];
   settings: SiteSettings;
 }
 
+// Self-contained defaults served from /public — these work on any host.
+// Admins can override the logo and backgrounds from the settings tab.
 export const defaultSettings: SiteSettings = {
   whatsapp: "77000000000",
   title: "By Aidanella",
   subtitle: "Искушение в каждом кусочке",
-  logo: logoAsset.url,
-  bgDesktop: bgDesktopAsset.url,
-  bgMobile: bgMobileAsset.url,
+  logo: "/logo.svg",
+  bgDesktop: "/bg-desktop.svg",
+  bgMobile: "/bg-mobile.svg",
   categoryLabels: DEFAULT_CATEGORY_LABELS,
 };
 

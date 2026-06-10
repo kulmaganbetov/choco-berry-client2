@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <linearGradient id="berry" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8597B"/>
+      <stop offset="100%" stop-color="#C13A5E"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7FB069"/>
+      <stop offset="100%" stop-color="#5E8C4E"/>
+    </linearGradient>
+  </defs>
+  <!-- berry body -->
+  <path d="M120 92
+           C 168 92 196 120 196 156
+           C 196 196 156 220 120 220
+           C 84 220 44 196 44 156
+           C 44 120 72 92 120 92 Z"
+        fill="url(#berry)"/>
+  <!-- leaves -->
+  <g fill="url(#leaf)">
+    <path d="M120 96 C 104 70 80 60 58 62 C 74 78 86 92 110 100 Z"/>
+    <path d="M120 96 C 136 70 160 60 182 62 C 166 78 154 92 130 100 Z"/>
+    <path d="M120 98 C 112 74 112 56 120 40 C 128 56 128 74 120 98 Z"/>
+  </g>
+  <!-- seeds -->
+  <g fill="#FCE9B8">
+    <ellipse cx="96"  cy="128" rx="3.4" ry="5" transform="rotate(-18 96 128)"/>
+    <ellipse cx="120" cy="124" rx="3.4" ry="5"/>
+    <ellipse cx="144" cy="128" rx="3.4" ry="5" transform="rotate(18 144 128)"/>
+    <ellipse cx="80"  cy="156" rx="3.4" ry="5" transform="rotate(-24 80 156)"/>
+    <ellipse cx="108" cy="152" rx="3.4" ry="5" transform="rotate(-6 108 152)"/>
+    <ellipse cx="132" cy="152" rx="3.4" ry="5" transform="rotate(6 132 152)"/>
+    <ellipse cx="160" cy="156" rx="3.4" ry="5" transform="rotate(24 160 156)"/>
+    <ellipse cx="96"  cy="182" rx="3.4" ry="5" transform="rotate(-16 96 182)"/>
+    <ellipse cx="120" cy="186" rx="3.4" ry="5"/>
+    <ellipse cx="144" cy="182" rx="3.4" ry="5" transform="rotate(16 144 182)"/>
+  </g>
+</svg>
