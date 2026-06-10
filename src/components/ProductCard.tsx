@@ -27,7 +27,9 @@ export function ProductCard({ product, index }: { product: Product; index: numbe
         <div className="flex-1">
           <h3 className="text-xl font-semibold text-foreground leading-tight">{product.name}</h3>
           {product.description && (
-            <p className="mt-1.5 text-sm text-muted-foreground line-clamp-2">{product.description}</p>
+            <p className="mt-1.5 text-sm text-muted-foreground line-clamp-2">
+              {product.description}
+            </p>
           )}
         </div>
         <div className="flex items-center justify-between gap-3 pt-2">

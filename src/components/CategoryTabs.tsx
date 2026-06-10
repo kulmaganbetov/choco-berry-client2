@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { CATEGORIES, type Category } from "@/types";
+import { CATEGORIES, getCategoryLabel, type Category } from "@/types";
+import { useStore } from "@/store/useStore";
 
 export function CategoryTabs({
   value,
@@ -8,9 +9,13 @@ export function CategoryTabs({
   value: Category | "all";
   onChange: (c: Category | "all") => void;
 }) {
+  const categoryLabels = useStore((s) => s.settings.categoryLabels);
   const items: { id: Category | "all"; label: string }[] = [
     { id: "all", label: "Все" },
-    ...CATEGORIES,
+    ...CATEGORIES.map((category) => ({
+      id: category.id,
+      label: getCategoryLabel(categoryLabels, category.id),
+    })),
   ];
 
   return (

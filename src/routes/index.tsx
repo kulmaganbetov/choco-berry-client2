@@ -11,9 +11,16 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "By Aidanella — Клубника в шоколаде | Премиум десерты" },
-      { name: "description", content: "By Aidanella — премиальная клубника и ягоды в бельгийском шоколаде. Заказ через WhatsApp." },
+      {
+        name: "description",
+        content:
+          "By Aidanella — премиальная клубника и ягоды в бельгийском шоколаде. Заказ через WhatsApp.",
+      },
       { property: "og:title", content: "By Aidanella — Искушение в каждом кусочке" },
-      { property: "og:description", content: "Премиальная клубника в шоколаде ручной работы. Доставка и подарочные наборы." },
+      {
+        property: "og:description",
+        content: "Премиальная клубника в шоколаде ручной работы. Доставка и подарочные наборы.",
+      },
     ],
   }),
   component: Home,
@@ -49,7 +56,10 @@ function Home() {
         style={{ backgroundImage: `url(${settings.bgMobile})` }}
         aria-hidden
       />
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-blush/30 via-transparent to-blush/60" aria-hidden />
+      <div
+        className="fixed inset-0 -z-10 bg-gradient-to-b from-blush/30 via-transparent to-blush/60"
+        aria-hidden
+      />
 
       {/* Admin доступен только по прямой ссылке /admin */}
 
@@ -73,7 +83,7 @@ function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.8 }}
-            className="mt-6 font-script text-5xl md:text-7xl text-gradient-rose"
+            className="mt-6 font-script text-6xl leading-none sm:text-7xl md:text-8xl lg:text-9xl text-gradient-rose"
           >
             {settings.title}
           </motion.h1>
@@ -119,9 +129,7 @@ function Home() {
             className="text-center mb-10"
           >
             <p className="text-gold uppercase tracking-[0.4em] text-xs mb-3">Menu</p>
-            <h2 className="font-script text-5xl md:text-6xl text-gradient-rose">
-              Наша коллекция
-            </h2>
+            <h2 className="font-script text-5xl md:text-6xl text-gradient-rose">Наша коллекция</h2>
             <div className="mt-4 mx-auto w-24 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
           </motion.div>
 
