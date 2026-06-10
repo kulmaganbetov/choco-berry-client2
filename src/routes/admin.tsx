@@ -361,6 +361,12 @@ function SettingsForm({
 }) {
   const [form, setForm] = useState(settings);
 
+  // When the store loads fresh data from the server (async after mount),
+  // sync the local form so we don't overwrite server data on next save.
+  useEffect(() => {
+    setForm(settings);
+  }, [settings]);
+
   const handleFile = async (key: "logo" | "bgDesktop" | "bgMobile", file: File) => {
     // Backgrounds can be a bit larger/higher quality than product thumbnails.
     const maxDim = key === "logo" ? 512 : 1920;

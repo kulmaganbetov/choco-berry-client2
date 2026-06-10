@@ -3,8 +3,17 @@ import type { Product } from "@/types";
 import { buildWhatsAppLink, formatPrice } from "@/utils";
 import { useStore } from "@/store/useStore";
 
-export function ProductCard({ product, index }: { product: Product; index: number }) {
-  const phone = useStore((s) => s.settings.whatsapp);
+export function ProductCard({
+  product,
+  index,
+  phone: phoneProp,
+}: {
+  product: Product;
+  index: number;
+  phone?: string;
+}) {
+  const storePhone = useStore((s) => s.settings.whatsapp);
+  const phone = phoneProp ?? storePhone;
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
