@@ -43,9 +43,9 @@
   --color-gold: var(--gold);
   --color-champagne: var(--champagne);
 
-  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-display: "Playfair Display", Georgia, serif;
   --font-script: "Great Vibes", "Brush Script MT", "Snell Roundhand", cursive;
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
