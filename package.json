@@ -12,6 +12,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@vercel/kv": "^3.0.0",
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource/great-vibes": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
