@@ -85,8 +85,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:title", content: "By Aidanella" },
       { property: "og:description", content: "By Aidanella — премиальная клубника в шоколаде" },
       { name: "twitter:description", content: "By Aidanella — премиальная клубника в шоколаде" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f1cbef7c-0407-4e08-a039-31257b50dfb7/id-preview-e0beb155--a64db1b0-bb9f-4f93-889d-f79a73c4741e.lovable.app-1781091169437.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f1cbef7c-0407-4e08-a039-31257b50dfb7/id-preview-e0beb155--a64db1b0-bb9f-4f93-889d-f79a73c4741e.lovable.app-1781091169437.png" },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f1cbef7c-0407-4e08-a039-31257b50dfb7/id-preview-e0beb155--a64db1b0-bb9f-4f93-889d-f79a73c4741e.lovable.app-1781091169437.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f1cbef7c-0407-4e08-a039-31257b50dfb7/id-preview-e0beb155--a64db1b0-bb9f-4f93-889d-f79a73c4741e.lovable.app-1781091169437.png",
+      },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
