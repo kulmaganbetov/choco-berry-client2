@@ -7,9 +7,14 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Force-enable Nitro with the Vercel preset. Without an explicit top-level `nitro`
+  // option, Lovable's config skips Nitro entirely outside its own sandbox, which
+  // produces a client-only build with no server — that is what made Vercel serve a 404.
+  // `nitro` must be present in devDependencies (it is) for this to load.
+  nitro: { preset: "vercel" },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
-    server: { entry: "server", preset: "vercel" },
+    server: { entry: "server" },
   },
 });
