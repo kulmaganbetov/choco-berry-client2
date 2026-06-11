@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiMigrateImagesRouteImport } from './routes/api/migrate-images'
 import { Route as ApiImageIdRouteImport } from './routes/api/image.$id'
 
 const AdminRoute = AdminRouteImport.update({
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMigrateImagesRoute = ApiMigrateImagesRouteImport.update({
+  id: '/api/migrate-images',
+  path: '/api/migrate-images',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiImageIdRoute = ApiImageIdRouteImport.update({
   id: '/api/image/$id',
   path: '/api/image/$id',
@@ -32,30 +38,34 @@ const ApiImageIdRoute = ApiImageIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/api/migrate-images': typeof ApiMigrateImagesRoute
   '/api/image/$id': typeof ApiImageIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/api/migrate-images': typeof ApiMigrateImagesRoute
   '/api/image/$id': typeof ApiImageIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/api/migrate-images': typeof ApiMigrateImagesRoute
   '/api/image/$id': typeof ApiImageIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/api/image/$id'
+  fullPaths: '/' | '/admin' | '/api/migrate-images' | '/api/image/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/api/image/$id'
-  id: '__root__' | '/' | '/admin' | '/api/image/$id'
+  to: '/' | '/admin' | '/api/migrate-images' | '/api/image/$id'
+  id: '__root__' | '/' | '/admin' | '/api/migrate-images' | '/api/image/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  ApiMigrateImagesRoute: typeof ApiMigrateImagesRoute
   ApiImageIdRoute: typeof ApiImageIdRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/migrate-images': {
+      id: '/api/migrate-images'
+      path: '/api/migrate-images'
+      fullPath: '/api/migrate-images'
+      preLoaderRoute: typeof ApiMigrateImagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/image/$id': {
       id: '/api/image/$id'
       path: '/api/image/$id'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  ApiMigrateImagesRoute: ApiMigrateImagesRoute,
   ApiImageIdRoute: ApiImageIdRoute,
 }
 export const routeTree = rootRouteImport
