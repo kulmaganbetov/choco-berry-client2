@@ -12,3 +12,14 @@ model Catalog {
   data      Json
   updatedAt DateTime @updatedAt
 }
+
+// Uploaded photos are stored here as binary instead of being inlined (as huge
+// base64 data URLs) into the Catalog JSON. The catalog only keeps a short
+// "/api/image/{id}" reference, which keeps the catalog-save payload tiny and
+// avoids Vercel's 4.5 MB request-body limit (the cause of the 413 errors).
+model Image {
+  id        String   @id
+  mimeType  String
+  data      Bytes
+  createdAt DateTime @default(now())
+}

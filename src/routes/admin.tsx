@@ -11,6 +11,7 @@ import {
 } from "@/types";
 import { formatPrice } from "@/utils";
 import { fileToCompressedDataUrl } from "@/lib/image";
+import { uploadImage } from "@/lib/image.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -135,7 +136,9 @@ function Dashboard() {
         {(isSyncing || saveError) && (
           <div className="mb-4 flex flex-wrap items-center gap-3 text-sm">
             {isSyncing && <span className="text-muted-foreground">Сохранение…</span>}
-            {saveError && <span className="text-destructive">Ошибка синхронизации: {saveError}</span>}
+            {saveError && (
+              <span className="text-destructive">Ошибка синхронизации: {saveError}</span>
+            )}
           </div>
         )}
 
@@ -257,9 +260,22 @@ function ProductModal({
     },
   );
 
+  const [uploading, setUploading] = useState(false);
+
   const handleImage = async (file: File) => {
+    setUploading(true);
     const dataUrl = await fileToCompressedDataUrl(file);
-    setForm((prev) => ({ ...prev, image: dataUrl }));
+    try {
+      // Store the file in the DB and keep only a short URL in the catalog.
+      const { url } = await uploadImage({ data: { dataUrl } });
+      setForm((prev) => ({ ...prev, image: url }));
+    } catch {
+      // If the upload endpoint is unavailable, fall back to the inline data
+      // URL so the admin can still save (degraded, but never broken).
+      setForm((prev) => ({ ...prev, image: dataUrl }));
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -325,12 +341,14 @@ function ProductModal({
           <input
             type="file"
             accept="image/*"
+            disabled={uploading}
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (file) void handleImage(file);
             }}
-            className="mt-2 text-xs"
+            className="mt-2 text-xs disabled:opacity-50"
           />
+          {uploading && <p className="mt-1 text-xs text-muted-foreground">Загрузка фото…</p>}
           {form.image && (
             <img src={form.image} alt="" className="mt-2 w-full h-40 object-cover rounded-xl" />
           )}
@@ -360,6 +378,7 @@ function SettingsForm({
   update: (s: Partial<SiteSettings>) => void;
 }) {
   const [form, setForm] = useState(settings);
+  const [uploadingKey, setUploadingKey] = useState<string | null>(null);
 
   // When the store loads fresh data from the server (async after mount),
   // sync the local form so we don't overwrite server data on next save.
@@ -370,8 +389,18 @@ function SettingsForm({
   const handleFile = async (key: "logo" | "bgDesktop" | "bgMobile", file: File) => {
     // Backgrounds can be a bit larger/higher quality than product thumbnails.
     const maxDim = key === "logo" ? 512 : 1920;
+    setUploadingKey(key);
     const dataUrl = await fileToCompressedDataUrl(file, { maxDim });
-    setForm((prev) => ({ ...prev, [key]: dataUrl }));
+    try {
+      // Store the file in the DB and keep only a short URL in the settings.
+      const { url } = await uploadImage({ data: { dataUrl } });
+      setForm((prev) => ({ ...prev, [key]: url }));
+    } catch {
+      // Fall back to the inline data URL if the upload endpoint is unavailable.
+      setForm((prev) => ({ ...prev, [key]: dataUrl }));
+    } finally {
+      setUploadingKey(null);
+    }
   };
 
   return (
@@ -429,12 +458,14 @@ function SettingsForm({
           <input
             type="file"
             accept="image/*"
+            disabled={uploadingKey === key}
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (file) void handleFile(key, file);
             }}
-            className="text-xs"
+            className="text-xs disabled:opacity-50"
           />
+          {uploadingKey === key && <p className="mt-1 text-xs text-muted-foreground">Загрузка…</p>}
         </div>
       ))}
 
