@@ -23,13 +23,13 @@ export const Route = createFileRoute("/")({
       : [];
     return {
       meta: [
-        { title: "By Aidanella — Клубника в шоколаде | Премиум десерты" },
+        { title: "Berrysmile — Клубника в шоколаде | Премиум десерты" },
         {
           name: "description",
           content:
-            "By Aidanella — премиальная клубника и ягоды в бельгийском шоколаде. Заказ через WhatsApp.",
+            "Berrysmile — премиальная клубника и ягоды в бельгийском шоколаде. Заказ через WhatsApp.",
         },
-        { property: "og:title", content: "By Aidanella — Искушение в каждом кусочке" },
+        { property: "og:title", content: "Berrysmile — Искушение в каждом кусочке" },
         {
           property: "og:description",
           content: "Премиальная клубника в шоколаде ручной работы. Доставка и подарочные наборы.",
@@ -81,7 +81,7 @@ function Home() {
         >
           <motion.img
             src={settings.logo}
-            alt="By Aidanella"
+            alt="Berrysmile"
             className="mx-auto w-44 md:w-60 drop-shadow-[0_8px_30px_rgba(217,122,151,0.35)]"
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
