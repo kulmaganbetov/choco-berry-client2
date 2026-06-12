@@ -15,7 +15,7 @@ import { uploadImage } from "@/lib/image.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
-    meta: [{ title: "Админ — By Aidanella" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Админ — Berrysmile" }, { name: "robots", content: "noindex" }],
   }),
   component: Admin,
 });
@@ -44,7 +44,7 @@ function Login() {
       >
         <div className="text-center">
           <h1 className="font-script text-4xl text-gradient-rose">Admin</h1>
-          <p className="text-sm text-muted-foreground mt-1">By Aidanella</p>
+          <p className="text-sm text-muted-foreground mt-1">Berrysmile</p>
         </div>
         <Field label="Логин" value={u} onChange={setU} />
         <Field label="Пароль" type="password" value={p} onChange={setP} />
